@@ -20,6 +20,8 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+	<script src="src/jquery-1.12.1.min.js"></script>
+	<script src="src/bloodhound/bloodhound.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -29,10 +31,92 @@
 
     <!-- Custom styles for this template -->
     <link href="carousel.css" rel="stylesheet">
+	<script type = "javascript">
+
+	
+	var substringMatcher = function(strs) {
+	  return function findMatches(q, cb) {
+	    var matches, substringRegex;
+
+	    // an array that will be populated with substring matches
+	    matches = [];
+
+	    // regex used to determine if a string contains the substring `q`
+	    substrRegex = new RegExp(q, 'i');
+
+	    // iterate through the pool of strings and for any string that
+	    // contains the substring `q`, add it to the `matches` array
+	    $.each(strs, function(i, str) {
+	      if (substrRegex.test(str)) {
+	        matches.push(str);
+	      }
+	    });
+
+	    cb(matches);
+	  };
+	};
+
+	var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+	  'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+	  'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+	  'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+	  'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+	  'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+	  'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+	  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+	  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+	];
+
+	$('#the-basics .typeahead').typeahead({
+	  hint: true,
+	  highlight: true,
+	  minLength: 1
+	},
+	{
+	  name: 'states',
+	  source: substringMatcher(states)
+	});
+	</script>
+	
+    <script>
+    $(function() {
+      var availableTags = [
+        "ActionScript",
+        "AppleScript",
+        "Asp",
+        "BASIC",
+        "C",
+        "C++",
+        "Clojure",
+        "COBOL",
+        "ColdFusion",
+        "Erlang",
+        "Fortran",
+        "Groovy",
+        "Haskell",
+        "Java",
+        "JavaScript",
+        "Lisp",
+        "Perl",
+        "PHP",
+        "Python",
+        "Ruby",
+        "Scala",
+        "Scheme"
+      ];
+      $( "#tags" ).autocomplete({
+        source: availableTags
+      });
+    });
+    </script>
+	
+	
   </head>
 <!-- NAVBAR
 ================================================== -->
   <body>
+	  
+	  
     <div class="navbar-wrapper">
       <div class="container">
 
@@ -45,7 +129,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Project name</a>
+              <a class="navbar-brand" href="#">Road Trip Pals</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
@@ -55,15 +139,18 @@
 				<li><a href="#contact">Driver</a></li>
 				<li><a href="#contact">Passenger</a></li>
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Destinations<span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
+                    <li><a href="#">Montreal</a></li>
+                    <li><a href="#">Ottawa</a></li>
+                    <li><a href="#">Toronto</a></li>
+					<li><a href="#">Boston</a></li>
+					<li><a href="#">Burlington</a></li>
+					<li><a href="#">New York</a></li>
                     <li role="separator" class="divider"></li>
-                    <li class="dropdown-header">Nav header</li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
+                    <li class="dropdown-header">Routes Coming Soon</li>
+                    <li><a href="#">Canada</a></li>
+                    <li><a href="#">USA</a></li>
                   </ul>
                 </li>
               </ul>
@@ -86,12 +173,13 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="item active">
+			<!--video src="image/roadtrip video.mp4" preload=" "></video-->
+			
           <img class="first-slide" src="image/quebec.jpg" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
               <h1>Road Trip Pals</h1>
               <p>We seek to provide services for inter-city travelers. The main purpose of our company is to encourage car sharing and improve the connection between people in the world. We allow customers to travel inter-city with a low cost under full security.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
             </div>
           </div>
         </div>
@@ -103,7 +191,6 @@
               <p>
                 We seek to simplify the roadtrip experience by connecting people within the same community with similar or equal departure and destination points as long as the journey is more than 30 minutes. 
                  </p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
             </div>
           </div>
         </div>
@@ -113,7 +200,6 @@
             <div class="carousel-caption">
               <h1> No money for traveling? No problem </h1>
               <p>Make money as you travel by giving a ride to people who want to go to your same destination. </p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
             </div>
           </div>
         </div>
@@ -128,6 +214,9 @@
       </a>
     </div><!-- /.carousel -->
 
+<!--<div id="the-basics">
+  <input class="typeahead" type="text" placeholder="States of USA">
+</div>
 
     <!-- Marketing messaging and featurettes
     ================================================== -->
@@ -138,23 +227,24 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+          <img class="img-circle" src="image/volkswagen van.png" alt="Generic placeholder image" width="140" height="140">
           <h2>Leave the Buses Aside</h2>
           <p>Cars are faster than buses and most importantly, we promote a community by 				inviting you to connect with your fellow passengers and share the 				experience of traveling. 
 			  Share your road trip experience with someone of your community and make money at the same time. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img class="img-circle" src="image/volkswagen van.png" alt="Generic placeholder image" width="140" height="140">
+          <img class="img-circle" src="image/friends.jpg" alt="Generic placeholder image" width="140" height="140">
           <h2>Unconditional Love</h2>
           <p> 7 days a week, 24 hours a day, no matter where you are or when you call us, we will always be there to assist you. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
+<<<<<<< HEAD
+          <img class="img-circle" src="image/sharing is caring.jpg" alt="Generic placeholder image" width="140" height="140">
+=======
           <img class="img-circle" src="image/community-roundtable.jpg" alt="Generic placeholder image" width="140" height="140">
+>>>>>>> master
           <h2>Sharing is Caring</h2>
           <p>Transform the spare seats in your car into money. Find someone to share the travel costs with or even turn this into a business. We take care of the insurance and safety check. You share, we care. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
 
@@ -165,11 +255,11 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">BEST TRIP EVEEEER!! <span class="text-muted">It'll blow your mind.</span></h2>
+          <p class="lead">&ldquo;OMG, Traveling with people I met through Road Trip Pals was like SOOO MUCH FUN. They TRULY became my pals. I can't even. &rdquo; <br/>&#9733; &#9733; &#9733; &#9733; &#9733;</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive center-block" src="image/Julia Sinkovits.jpg" alt="Generic placeholder image">
         </div>
       </div>
 
@@ -177,11 +267,11 @@
 
       <div class="row featurette">
         <div class="col-md-7 col-md-push-5">
-          <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">Great software, great people, great experience. </h2>
+          <p class="lead">&ldquo;The website and the app are super easy to use, very intuitive and I saved a lot of money in compared to what I would have paid for a bus.&rdquo; &#9733; &#9733; &#9733; &#9733; &#9734; </p>
         </div>
         <div class="col-md-5 col-md-pull-7">
-          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive center-block" src="image/Jonathan Choi.jpg" alt="Generic placeholder image">
         </div>
       </div>
 
@@ -189,11 +279,11 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">I don't feel lonely anymore. <span class="text-muted">This is how I met my wife.</span></h2>
+          <p class="lead">&rdquo;I used to travel a lot alone between Boston and New York, but when I found this website, I created my account and started meeting new people. This way I got to meet many of them and we would hang out at night. One of these people I met is Lindsay and we've been married for a year now.  &rdquo; &#9733; &#9733; &#9733; &#9733; &#9733; </p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive center-block" src="image/Paul Lebrun.jpg" alt="Generic placeholder image">
         </div>
       </div>
 
@@ -205,7 +295,7 @@
       <!-- FOOTER -->
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2015 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <p>&copy; 2016 Road Trip Pals, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
       </footer>
 
     </div><!-- /.container -->
